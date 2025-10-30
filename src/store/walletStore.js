@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import { ethers } from 'ethers'
 
 export const useWalletStore = create(
@@ -93,11 +93,7 @@ export const useWalletStore = create(
     }),
     {
       name: 'wallet-storage',
-      partialize: (state) => ({
-        wallets: state.wallets,
-        activeWallet: state.activeWallet,
-        activeNetwork: state.activeNetwork
-      })
+      storage: createJSONStorage(() => localStorage),
     }
   )
 )
